@@ -1,0 +1,39 @@
+<!-- ================= VIDEO SCREEN ================= -->
+<div *ngIf="showVideo" class="video-container">
+  <video
+    #introVideo
+    class="intro-video"
+    muted
+    autoplay
+    playsinline
+    preload="auto"
+    (click)="enableSound()"
+    (ended)="onVideoEnded()"
+  >
+    <source src="assets/video/video.mp4" type="video/mp4" />
+  </video>
+
+  <button class="skip-btn" (click)="skipIntro()">
+    Skip Intro
+  </button>
+</div>
+
+<!-- ================= WELCOME SCREEN ================= -->
+<div *ngIf="!showVideo" class="welcome-screen">
+
+  <!-- TOP TITLE -->
+  <div class="welcome-header">
+    <h1>कौन बनेगा करोड़पति</h1>
+  </div>
+
+  <!-- CENTER CONTENT -->
+  <div class="welcome-center">
+    <h2>Win up to ₹ 7 Crores</h2>
+    <p>15 Questions • 6 Lifelines • 45 seconds per question</p>
+
+    <button class="start-btn" (click)="start()">
+      Start Game
+    </button>
+  </div>
+
+</div>

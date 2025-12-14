@@ -1,0 +1,78 @@
+<div class="result-container">
+  <!-- Animated Background -->
+  <div class="animated-bg"></div>
+
+  <!-- Main Result Card -->
+  <div class="result-card" *ngIf="state">
+
+    <!-- Top Trophy Section -->
+    <div class="trophy-section" *ngIf="state.score > 0">
+      <div class="trophy-icon">🏆</div>
+      <div class="winner-text">Winner!</div>
+    </div>
+
+    <!-- Player Info Banner -->
+    <div class="player-banner">
+      <h1 class="player-name">{{ state.playerName }}</h1>
+      <p class="subtitle">Kaun Banega Crorepati Champion</p>
+    </div>
+
+    <!-- Prize Amount - Big Display -->
+    <div class="prize-display">
+      <div class="prize-label">You Won</div>
+      <div class="prize-amount">{{ prize }}</div>
+      <div class="prize-subtext">Congratulations on your victory!</div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-icon">📊</div>
+        <div class="stat-value">{{ state.score }}</div>
+        <div class="stat-label">Correct Answers</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-icon">❓</div>
+        <div class="stat-value">{{ state.questions?.length || 15 }}</div>
+        <div class="stat-label">Total Questions</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-value">{{ calculateAccuracy() }}%</div>
+        <div class="stat-label">Accuracy</div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button class="btn btn-primary" (click)="playAgain()">
+        <span class="btn-icon">🔄</span>
+        Play Again
+      </button>
+      <button class="btn btn-secondary" (click)="home()">
+        <span class="btn-icon">🏠</span>
+        Home
+      </button>
+    </div>
+
+    <!-- Decorative Elements -->
+    <div class="sparkle sparkle-1">✨</div>
+    <div class="sparkle sparkle-2">✨</div>
+    <div class="sparkle sparkle-3">✨</div>
+    <div class="sparkle sparkle-4">✨</div>
+  </div>
+
+  <!-- Confetti Effect -->
+  <div class="confetti-container" *ngIf="state && state.score > 0">
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+    <div class="confetti"></div>
+  </div>
+</div>

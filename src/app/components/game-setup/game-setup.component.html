@@ -1,0 +1,117 @@
+<div class="setup-container">
+  <!-- Animated Background Elements -->
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <!-- Main Setup Card -->
+  <div class="setup-card">
+
+    <!-- Header Section -->
+    <div class="card-header">
+      <div class="kbc-logo">
+        <div class="logo-text">कौन बनेगा करोड़पति</div>
+        <div class="logo-subtitle">Kaun Banega Crorepati</div>
+      </div>
+      <h2 class="setup-title">Player Setup</h2>
+      <p class="setup-subtitle">Enter your details to begin the journey</p>
+    </div>
+
+    <!-- Form Section -->
+    <div class="form-content">
+
+      <!-- Player Name Input -->
+      <div class="form-group">
+        <label class="form-label">
+          <span class="label-icon">👤</span>
+          Player Name
+        </label>
+        <input
+          class="form-input"
+          [(ngModel)]="playerName"
+          placeholder="Enter your name"
+          maxlength="30"
+          autocomplete="off" />
+      </div>
+
+      <!-- Language Selection -->
+      <div class="form-group">
+        <label class="form-label">
+          <span class="label-icon">🌐</span>
+          Language
+        </label>
+        <div class="custom-select">
+          <select class="form-select" [(ngModel)]="selectedLanguage">
+            <option value="" disabled selected>Choose Language</option>
+            <option *ngFor="let l of languages" [value]="l.code">{{ l.name }}</option>
+          </select>
+          <span class="select-arrow">▼</span>
+        </div>
+      </div>
+
+      <!-- Category Selection -->
+      <div class="form-group">
+        <label class="form-label">
+          <span class="label-icon">📚</span>
+          Category
+        </label>
+        <div class="custom-select">
+          <select class="form-select" [(ngModel)]="selectedCategory" (change)="onCatChange()">
+            <option value="" disabled selected>Choose a Category</option>
+            <option *ngFor="let c of categories" [value]="c.name">{{ c.name }}</option>
+          </select>
+          <span class="select-arrow">▼</span>
+        </div>
+      </div>
+
+      <!-- Subcategory Selection -->
+      <div class="form-group">
+        <label class="form-label">
+          <span class="label-icon">🎯</span>
+          Subcategory
+        </label>
+        <div class="custom-select">
+          <select
+            class="form-select"
+            [(ngModel)]="selectedSubcategory"
+            [disabled]="!selectedCategory">
+            <option value="" disabled selected>Choose Subcategory</option>
+            <option *ngFor="let s of subcategories" [value]="s">{{ s }}</option>
+          </select>
+          <span class="select-arrow">▼</span>
+        </div>
+      </div>
+
+      <!-- Error Message -->
+      <div class="error-message" *ngIf="error">
+        <span class="error-icon">⚠️</span>
+        {{ error }}
+      </div>
+
+      <!-- Start Button -->
+      <div class="button-container">
+        <button
+          class="start-button"
+          (click)="startGame()"
+          [disabled]="isLoading"
+          [class.loading]="isLoading">
+          <span class="button-content" *ngIf="!isLoading">
+            <span class="button-icon">🎮</span>
+            Start Game
+          </span>
+          <span class="button-content" *ngIf="isLoading">
+            <span class="loader"></span>
+            Loading...
+          </span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Decorative Corner Elements -->
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration top-right"></div>
+    <div class="corner-decoration bottom-left"></div>
+    <div class="corner-decoration bottom-right"></div>
+
+  </div>
+</div>

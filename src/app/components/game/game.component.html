@@ -1,0 +1,144 @@
+<div class="game-container">
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="player-info">
+      <div class="player-avatar">👤</div>
+      <div class="player-details">
+        <div class="player-name">{{ state?.playerName || 'Player' }}</div>
+        <div class="question-number">Question {{ (state?.currentQuestion ?? 0) + 1 }} of 15</div>
+      </div>
+    </div>
+
+    <div class="timer-display" [style.borderColor]="getTimerColor()" [style.color]="getTimerColor()">
+      <div class="timer-icon">⏱️</div>
+      <div class="timer-value">{{ timer }}</div>
+      <div class="timer-label">sec</div>
+    </div>
+
+    <div class="prize-info">
+      <div class="prize-label">Prize Money</div>
+      <div class="prize-amount">{{ getCurrentPrize() }}</div>
+    </div>
+  </div>
+
+  <!-- Main Game Area -->
+  <div class="game-main">
+
+    <!-- KBC Logo Watermark -->
+    <div class="kbc-watermark"></div>
+
+    <!-- Question Box -->
+    <div class="question-section">
+      <div class="question-header">
+        <span class="question-badge">Question {{ (state?.currentQuestion ?? 0) + 1 }}</span>
+        <span class="category-badge">{{ state?.category }}</span>
+      </div>
+
+      <div class="question-text">
+        {{ current?.question }}
+      </div>
+    </div>
+
+    <!-- Answer Options -->
+    <div class="answers-grid">
+      <div
+        *ngFor="let a of displayed; let i = index"
+        class="answer-option"
+        [class.selected]="selected === a"
+        [class.correct]="showResult && a.correct"
+        [class.wrong]="showResult && selected === a && !a.correct"
+        [class.disabled]="selected !== null"
+        (click)="pick(a)">
+        <div class="option-letter">{{ getOptionLetter(i) }}</div>
+        <div class="option-text">{{ a.text }}</div>
+        <div class="option-indicator" *ngIf="showResult">
+          <span *ngIf="a.correct" class="correct-mark">✓</span>
+          <span *ngIf="selected === a && !a.correct" class="wrong-mark">✕</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lifelines Section -->
+    <div class="lifelines-section">
+      <div class="lifelines-title">Lifelines</div>
+      <div class="lifelines-grid">
+        <button
+          class="lifeline-btn"
+          [class.used]="!state?.lifelines?.fiftyFifty"
+          [disabled]="!state?.lifelines?.fiftyFifty"
+          (click)="useFifty()">
+          <span class="lifeline-icon">50:50</span>
+          <span class="lifeline-name">Fifty-Fifty</span>
+        </button>
+
+        <button
+          class="lifeline-btn"
+          [class.used]="!state?.lifelines?.askAudience"
+          [disabled]="!state?.lifelines?.askAudience"
+          (click)="askAudience()">
+          <span class="lifeline-icon">👥</span>
+          <span class="lifeline-name">Audience</span>
+        </button>
+
+        <button
+          class="lifeline-btn"
+          [class.used]="!state?.lifelines?.askExpert"
+          [disabled]="!state?.lifelines?.askExpert"
+          (click)="askExpert()">
+          <span class="lifeline-icon">🔍</span>
+          <span class="lifeline-name">Expert</span>
+        </button>
+
+        <button
+          class="lifeline-btn"
+          [class.used]="!state?.lifelines?.flipQuestion"
+          [disabled]="!state?.lifelines?.flipQuestion"
+          (click)="flipQ()">
+          <span class="lifeline-icon">🔄</span>
+          <span class="lifeline-name">Flip</span>
+        </button>
+
+        <button
+          class="lifeline-btn"
+          [class.used]="!state?.lifelines?.extraTime"
+          [disabled]="!state?.lifelines?.extraTime"
+          (click)="extra30()">
+          <span class="lifeline-icon">⏰</span>
+          <span class="lifeline-name">+30s</span>
+        </button>
+
+        <button
+          class="lifeline-btn"
+          [class.used]="!state?.lifelines?.doubleChance"
+          [disabled]="!state?.lifelines?.doubleChance"
+          (click)="doubleChance()">
+          <span class="lifeline-icon">🎯</span>
+          <span class="lifeline-name">Double</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Audience Poll Modal -->
+    <div class="audience-poll-modal" *ngIf="showAudience">
+      <div class="poll-overlay" (click)="closeAudiencePoll()"></div>
+      <div class="poll-content">
+        <div class="poll-header">
+          <h3>👥 Audience Poll Results</h3>
+          <button class="poll-close" (click)="closeAudiencePoll()">✕</button>
+        </div>
+        <div class="poll-bars">
+          <div *ngFor="let p of audienceData" class="poll-item">
+            <div class="poll-option">{{ p.option }}</div>
+            <div class="poll-bar-container">
+              <div class="poll-bar" [style.width.%]="p.percentage">
+                <span class="poll-percentage">{{ p.percentage }}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
