@@ -12,10 +12,18 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   generateQuestions(language: string, category: string, subcategory: string): Observable<Question[]> {
-    const headers = new HttpHeaders({
+     const headers = new HttpHeaders({
       'Accept': '*/*',
+      'Accept-Language': 'en-US,en;q=0.9',
+      'Authorization': `Bearer ${this.key}`,
+      'Connection': 'keep-alive',
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.key}`
+      'Origin': 'https://satyajeet-jagtap.github.io',
+      'Referer': 'https://satyajeet-jagtap.github.io/',
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+      'sec-ch-ua': '"Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"',
+      'sec-ch-ua-mobile': '?0',
+      'sec-ch-ua-platform': '"Windows"'
     });
 
     const prompt = `Generate 15 multiple-choice questions in a JSON array. First 5 easy, next 5 medium, last 5 difficult.
