@@ -7,7 +7,7 @@ import { Question } from '../models/question.model';
 @Injectable({ providedIn: 'root' })
 export class ApiService {
   private url = 'https://openrouter.ai/api/v1/chat/completions';
-  private key = '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';
+  private key = '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';
 
   constructor(private http: HttpClient) {}
 
